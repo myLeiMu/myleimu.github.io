@@ -1,0 +1,195 @@
+/* The custom slide cards have an extra .recent-post-items wrapper. */
+@media screen and (max-width: 1068px) {
+  #recent-posts {
+    display: block;
+    padding: 0;
+    min-width: 0;
+  }
+
+  #recent-posts .recent-post-items {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  #recent-posts .recent-post-item {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    align-self: start;
+  }
+
+  #recent-posts .recent-post-content {
+    --mobile-cover-height: clamp(160px, 28vw, 220px);
+    max-height: none;
+    min-width: 0;
+  }
+
+  #recent-posts .recent-post-cover,
+  #recent-posts .recent-post-content .article-content {
+    height: var(--mobile-cover-height);
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 50% 100%, 0 88%);
+  }
+
+  #recent-posts .recent-post-cover .article-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #recent-posts .recent-post-content .article-content {
+    top: 0;
+    left: 0;
+  }
+
+  #recent-posts .article-content .article-content-text {
+    margin: 12px 18px 28px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  #recent-posts .recent-post-content .recent-post-info {
+    height: auto;
+    padding: 16px 18px 20px;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  #recent-posts .recent-post-info .article-title,
+  #recent-posts .recent-post-info .recent-post-meta {
+    height: auto;
+    margin: 0;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  #recent-posts .article-title {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  #recent-posts .article-title .article-title-link,
+  #recent-posts .recent-post-meta .article-meta-wrap {
+    display: block;
+    overflow: visible;
+    overflow-wrap: anywhere;
+    -webkit-line-clamp: unset;
+  }
+
+  #recent-posts .recent-post-meta .article-meta-wrap {
+    font-size: 12px;
+    line-height: 1.8;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .layout {
+    padding: 20px 12px;
+  }
+
+  .layout > div:first-child:not(.nc) {
+    min-width: 0;
+    padding: 24px 18px;
+  }
+
+  #recent-posts .recent-post-items {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  #recent-posts .recent-post-content {
+    --mobile-cover-height: clamp(160px, 48vw, 240px);
+  }
+
+  #page-header #site-title {
+    font-size: clamp(26px, 7vw, 34px);
+    line-height: 1.4;
+  }
+
+  #page-header #site-subtitle {
+    margin-top: 8px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  #nav {
+    padding: 0 12px;
+    font-size: 18px;
+  }
+
+  #nav #blog-info {
+    min-width: 0;
+  }
+
+  #nav #menus {
+    flex-shrink: 0;
+  }
+
+  /* Long article titles must increase the header height instead of clipping. */
+  #page-header.post-bg {
+    height: auto;
+    min-height: 280px;
+  }
+
+  #page-header.post-bg #post-info {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    padding: 100px 20px 32px;
+    transform: none;
+  }
+
+  #post-info .post-title {
+    display: block;
+    font-size: clamp(24px, 6vw, 30px);
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+    -webkit-line-clamp: unset;
+  }
+
+  #article-container {
+    font-size: 15px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+  }
+
+  #article-container pre,
+  #article-container .table-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-wrap: normal;
+  }
+
+  #todolist-box {
+    margin: 0;
+  }
+
+  #todolist-left,
+  #todolist-right {
+    width: 100%;
+    padding: 0;
+  }
+
+  .page-top-card {
+    height: clamp(180px, 52vw, 260px);
+    padding: 16px 20px;
+    border-radius: 12px;
+  }
+
+  .page-top-card span.content-item-title {
+    font-size: 28px;
+  }
+
+  .page-top-card .content-bottom {
+    width: auto;
+    left: 20px;
+    right: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  #todolist-main li {
+    font-size: 15px;
+    overflow-wrap: anywhere;
+  }
+}
