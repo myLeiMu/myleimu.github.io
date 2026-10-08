@@ -1,0 +1,83 @@
+/* GIF silhouette reveal, inspired by https://theme-toggle.rdsx.dev/ .
+   Scoped to manual theme switches; navigation and gallery photos are unaffected. */
+html.theme-gif-transition {
+  --expo-in: linear(
+    0 0%, 0.0085 31.26%, 0.0167 40.94%, 0.0289 48.86%,
+    0.0471 55.92%, 0.0717 61.99%, 0.1057 67.32%, 0.1443 72.07%,
+    0.1989 76.7%, 0.2659 80.89%, 0.3465 84.71%, 0.4419 88.22%,
+    0.554 91.48%, 0.6835 94.51%, 0.8316 97.34%, 1 100%
+  );
+}
+html.theme-gif-transition::view-transition-group(root) {
+  animation-duration: var(--theme-gif-duration, 3s);
+  animation-timing-function: var(--expo-in, ease-in);
+}
+html.theme-gif-transition::view-transition-old(root),
+html.theme-gif-transition::view-transition-new(root) {
+  mix-blend-mode: normal;
+  animation: theme-gif-reveal var(--theme-gif-duration, 3s) both;
+}
+html.theme-gif-transition::view-transition-old(root) { z-index: 1; }
+html.theme-gif-transition::view-transition-new(root) {
+  z-index: 2;
+  mask: var(--theme-gif-mask) center / 0 no-repeat;
+  mask-mode: alpha;
+}
+/* Prevent the theme's ordinary color transitions from appearing inside snapshots. */
+html.theme-gif-transition *, html.theme-gif-transition *::before, html.theme-gif-transition *::after {
+  transition: none !important;
+}
+@keyframes theme-gif-reveal {
+  /* Keep mask-image on the pseudo-element throughout. Animating it to 'none'
+     switches discretely and exposes the whole page before scaling finishes. */
+  0% { mask-size: 0; }
+  10% { mask-size: var(--theme-gif-start-width, min(40vw, 30vh)); }
+  90% { mask-size: var(--theme-gif-start-width, min(40vw, 30vh)); }
+  100% { mask-size: 2000vmax; }
+}
+/* Opaque GIFs keep their actual colors in a separate live snapshot. The page
+   underneath opens out from the same rectangle, so its pixels are never scaled. */
+#theme-gif-character {
+  position: fixed;
+  left: 50%; top: 50%;
+  width: var(--theme-gif-width); height: var(--theme-gif-height);
+  transform: translate(-50%, -50%);
+  border-radius: 14px;
+  object-fit: contain;
+  filter: none !important;
+  pointer-events: none;
+  view-transition-name: theme-character;
+  z-index: 2147483647;
+}
+html.theme-gif-picture::view-transition-new(root) {
+  mask-image: none;
+  animation: theme-picture-reveal var(--theme-gif-duration, 3s) linear both;
+}
+html.theme-gif-picture::view-transition-group(theme-character) {
+  z-index: 3;
+  animation: none;
+}
+html.theme-gif-picture::view-transition-new(theme-character) {
+  height: 100%;
+  transform-origin: center;
+  mix-blend-mode: normal;
+  animation: theme-picture-zoom var(--theme-gif-duration, 3s) linear both;
+}
+@keyframes theme-picture-reveal {
+  0% { clip-path: inset(50% round 14px); }
+  10%, 40% { clip-path: inset(calc(50% - var(--theme-gif-height) / 2) calc(50% - var(--theme-gif-width) / 2) round 14px); }
+  70% { clip-path: inset(15% 5% round 26px); }
+  100% { clip-path: inset(0 round 0px); }
+}
+@keyframes theme-picture-zoom {
+  0% { transform: scale(0); opacity: 0; }
+  10%, 40% { transform: scale(1); opacity: 1; }
+  60% { transform: scale(1.6); opacity: 1; }
+  85% { transform: scale(3); opacity: 0; }
+  100% { transform: scale(3.5); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.theme-gif-transition::view-transition-new(root) { animation: none; mask-image: none; }
+  html.theme-gif-picture::view-transition-new(root) { clip-path: none; }
+  html.theme-gif-picture::view-transition-new(theme-character) { animation: none; opacity: 0; }
+}
