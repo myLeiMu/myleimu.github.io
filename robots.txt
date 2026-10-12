@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://remblog.cc.cd/sitemap.xml
