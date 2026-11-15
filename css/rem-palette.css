@@ -1,0 +1,75 @@
+/* Rem's ice blue / cobalt / ribbon violet. Only accents move; pictures keep their original colors. */
+:root {
+  --rem-accent: #285fb9;
+  --rem-soft: #e8f2ff;
+  --rem-line: #bfd3ec;
+  --rem-muted: #596d89;
+  --rem-gradient: linear-gradient(110deg, #247aa6, #335cdb, #7552b7, #247aa6);
+  --card-bg: rgba(250, 253, 255, .97);
+  --font-color: #293c56;
+  --text-highlight-color: #163653;
+  --btn-bg: #285fb9;
+  --btn-hover-color: #674ead;
+  --blockquote-bg: #e8f2ff;
+  --blockquote-color: #365374;
+  --scrollbar-color: #6593c8;
+  --text-bg-hover: #dceaff;
+}
+[data-theme='dark'] {
+  --rem-accent: #8bc9ff;
+  --rem-soft: #233853;
+  --rem-line: #385471;
+  --rem-muted: #acbed5;
+  --rem-gradient: linear-gradient(110deg, #287aab, #445ed1, #8656b6, #287aab);
+  --card-bg: rgba(20, 32, 50, .98);
+  --font-color: #dbe7f7;
+  --text-highlight-color: #edf5ff;
+  --btn-bg: #315da5;
+  --btn-hover-color: #7357ad;
+  --blockquote-bg: #233853;
+  --blockquote-color: #c6d9f0;
+  --scrollbar-color: #547ea9;
+  --text-bg-hover: #2d4769;
+}
+body:not(.gallery-view)::before {
+  content: ''; position: fixed; z-index: 1001; inset: 0 0 auto; height: 3px;
+  background: var(--rem-gradient); background-size: 250% 100%; animation: rem-colors 9s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+body:not(.gallery-view) :is(#aside-content .card-widget, #recent-posts .recent-post-item, #post) {
+  border: 1px solid var(--rem-line);
+  border-top: 3px solid var(--rem-accent);
+}
+body:not(.gallery-view) :is(#page .page-title, .favorites-heading h1) {
+  color: var(--rem-accent);
+}
+@supports (-webkit-background-clip: text) {
+  #page-header.full_page #site-title {
+    background: linear-gradient(110deg, #effaff, #8bd8ff, #c0b2ff, #effaff); background-size: 250% 100%;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    text-shadow: none; filter: drop-shadow(0 2px 5px #061631aa);
+    animation: rem-colors 9s ease-in-out infinite alternate;
+  }
+  body:not(.gallery-view) :is(#page .page-title, .favorites-heading h1) {
+    background: var(--rem-gradient); background-size: 250% 100%;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    animation: rem-colors 9s ease-in-out infinite alternate;
+  }
+  [data-theme='dark'] body:not(.gallery-view) :is(#page .page-title, .favorites-heading h1) {
+    background-image: linear-gradient(110deg, #9ddfff, #96baff, #d3b5ff, #9ddfff);
+  }
+}
+body:not(.gallery-view) :is(#card-info-btn, .favorites-filter[aria-pressed='true'], #pagination .page-number.current) {
+  background: var(--rem-gradient); background-size: 250% 100%; color: #fff;
+  animation: rem-colors 9s ease-in-out infinite alternate;
+}
+body:not(.gallery-view) .favorites-heading { border-top: 3px solid var(--rem-accent); }
+body:not(.gallery-view) #article-container a:not(.tag-Link) { color: var(--rem-accent); }
+body.gallery-view { --card-bg: #f7f9fc; --font-color: #424d5b; --text-highlight-color: #253344; }
+[data-theme='dark'] body.gallery-view { --card-bg: #11151c; --font-color: #c5ccd5; --text-highlight-color: #e5ebf3; }
+@keyframes rem-colors { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+@media (prefers-reduced-motion: reduce) {
+  body:not(.gallery-view)::before,
+  #page-header.full_page #site-title,
+  body:not(.gallery-view) :is(#page .page-title, .favorites-heading h1, #card-info-btn, .favorites-filter[aria-pressed='true'], #pagination .page-number.current) { animation: none; }
+}
